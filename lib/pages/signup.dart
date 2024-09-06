@@ -1,21 +1,25 @@
+import 'package:e_commerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignupPage extends StatefulWidget {
+class SignupPage extends ConsumerStatefulWidget {
   const SignupPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  ConsumerState<SignupPage> createState() => _SignupPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignupPageState extends ConsumerState<SignupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(userProvider.notifier);
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Login", style: TextStyle(color: Colors.white)),
+          title: const Text("Signup", style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.black87,
         ),
         body: Padding(
@@ -41,23 +45,30 @@ class _SignupPageState extends State<SignupPage> {
               ),
               const SizedBox(height: 18),
               TextButton(
-                onPressed: null,
+                onPressed: () {
+                  notifier.signUp(
+                      emailController.text, passwordController.text);
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   fixedSize: const Size(500, 50),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                child:
-                    const Text("Log In", style: TextStyle(color: Colors.white)),
+                child: const Text("Sign Up",
+                    style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 16),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
-                  SizedBox(width: 10),
-                  Text("Sign Up"),
+                  const Text("Don't have an account?"),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.popAndPushNamed(context, '/login');
+                      },
+                      child: const Text("Log In")),
                 ],
               )
             ],

@@ -1,18 +1,22 @@
+import 'package:e_commerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(userProvider.notifier);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Login", style: TextStyle(color: Colors.white)),
@@ -41,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 18),
               TextButton(
-                onPressed: null,
+                onPressed: () {
+                  notifier.logIn(emailController.text, passwordController.text);
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   fixedSize: const Size(500, 50),
@@ -52,12 +58,17 @@ class _LoginPageState extends State<LoginPage> {
                     const Text("Log In", style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 16),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
-                  SizedBox(width: 10),
-                  Text("Sign Up"),
+                  const Text("Don't have an account?"),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.popAndPushNamed(context, '/signup');
+                    },
+                    child: const Text("Sign Up"),
+                  ),
                 ],
               )
             ],
