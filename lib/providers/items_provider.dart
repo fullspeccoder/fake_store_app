@@ -26,10 +26,19 @@ class ItemsNotifier extends StateNotifier<ItemList> {
 
     final response = await http.get(itemsUrl);
 
+    if (response.statusCode != 200) {
+      return;
+    }
     final listItems = jsonDecode(response.body)
         .map((el) => Item.fromMap(el as Map<String, dynamic>))
         .toList();
 
     state = ItemList(items: listItems);
+  }
+
+  List<dynamic> retriveCategories() {
+    final categoryList = state.items.map((el) => el.category).toList();
+    final sortedCategoryList = categoryList.toSet().toList();
+    return sortedCategoryList;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:e_commerce/firebase_options.dart';
+import 'package:e_commerce/pages/categories.dart';
 import 'package:e_commerce/pages/home.dart';
 import 'package:e_commerce/pages/login.dart';
 import 'package:e_commerce/pages/signup.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/': (_) => const MyHomePage(),
           '/login': (_) => const LoginPage(),
           '/signup': (_) => const SignupPage(),
+          '/categories': (_) => const CategoriesPage(),
         });
   }
 }

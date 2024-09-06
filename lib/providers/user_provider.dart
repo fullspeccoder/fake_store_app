@@ -49,8 +49,9 @@ class UserNotifier extends StateNotifier<LocalUser> {
     final DocumentSnapshot docSnapshot = query.docs[0];
 
     state = LocalUser(
-        id: docSnapshot.id,
-        user: FirebaseUser.fromMap(docSnapshot.data() as Map<String, dynamic>));
+      id: docSnapshot.id,
+      user: FirebaseUser.fromMap(docSnapshot.data() as Map<String, dynamic>),
+    );
   }
 
   Future<void> signUp(String email, String password) async {

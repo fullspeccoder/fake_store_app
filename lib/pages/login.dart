@@ -47,6 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               TextButton(
                 onPressed: () {
                   notifier.logIn(emailController.text, passwordController.text);
+                  Navigator.popAndPushNamed(context, '/categories');
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
