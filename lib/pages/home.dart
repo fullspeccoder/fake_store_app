@@ -13,15 +13,9 @@ class MyHomePage extends ConsumerStatefulWidget {
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
-  void initState() {
-    super.initState();
-    final notifier = ref.read(itemsProvider.notifier);
-    notifier.initializeItems();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const ValueKey('splash-screen'),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

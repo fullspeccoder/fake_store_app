@@ -5,26 +5,62 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:e_commerce/components/home/hero.dart';
+import 'package:e_commerce/firebase_options.dart';
+import 'package:e_commerce/pages/home.dart';
+import 'package:e_commerce/pages/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:e_commerce/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('splash screen details', () {
+    testWidgets('splash screen title', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: HeroContent(),
+          ),
+        ),
+      );
+      final textFinder = find.text('Lorem ipsum');
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(textFinder, findsOneWidget);
+    });
+    testWidgets('splash screen description', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: HeroContent(),
+          ),
+        ),
+      );
+      final textFinder = find.text("lorem ipsum halo solina fahli");
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      expect(textFinder, findsOneWidget);
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    testWidgets('splash screen', (tester) async {
+      await tester.pumpWidget(const MaterialApp(home: MyHomePage()));
+
+      expect(find.byKey(const ValueKey('splash-screen')), findsOne);
+    });
+
+    testWidgets('splash screen button', (tester) async {
+      await tester.pumpWidget(const MaterialApp(home: MyHomePage()));
+
+      expect(find.byKey(const ValueKey('hero-button')), findsOne);
+    });
+  });
+
+  group('login page', () {
+    testWidgets('app bar', (tester) async {
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      await tester.pumpWidget(const LoginPage());
+
+      expect(find.byType(AppBar), findsOne);
+    });
   });
 }

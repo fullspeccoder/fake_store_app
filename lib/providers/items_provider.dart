@@ -41,4 +41,10 @@ class ItemsNotifier extends StateNotifier<ItemList> {
     final sortedCategoryList = categoryList.toSet().toList();
     return sortedCategoryList;
   }
+
+  List<dynamic> retrieveCategoryCatalog(String category) {
+    return state.items.where((el) {
+      return el.category == category;
+    }).toList();
+  }
 }

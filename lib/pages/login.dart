@@ -1,3 +1,4 @@
+import 'package:e_commerce/providers/items_provider.dart';
 import 'package:e_commerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,6 +18,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(userProvider.notifier);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Login", style: TextStyle(color: Colors.white)),

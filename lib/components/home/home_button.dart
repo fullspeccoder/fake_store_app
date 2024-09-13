@@ -9,6 +9,7 @@ class HomeButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 32.0),
       child: TextButton(
+        key: const ValueKey('hero-button'),
         style: TextButton.styleFrom(
           fixedSize: const Size(375, 60),
           backgroundColor: Colors.deepPurple,
